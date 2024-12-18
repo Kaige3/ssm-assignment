@@ -2,6 +2,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/mvc
@@ -11,7 +12,7 @@
 		http://www.springframework.org/schema/aop
 		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
 		http://www.springframework.org/schema/tx
-		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
 
     <context:component-scan base-package="com.kaige">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
@@ -37,19 +38,17 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!-- 加载Mybatis全局配置文件 -->
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
-
         <!-- 数据库连接池 -->
         <property name="dataSource" ref="dataSource"/>
-
         <!-- 配置mapper文件位置，扫描映射文件 -->
-        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+<!--        <property name="mapperLocations" value="classpath:mapper/*.xml"/>-->
     </bean>
 
     <!-- step4: 配置批量执行的sqlSession(可选操作) -->
-    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
-        <constructor-arg name="executorType" value="BATCH"/>
-    </bean>
+<!--    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">-->
+<!--        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>-->
+<!--        <constructor-arg name="executorType" value="BATCH"/>-->
+<!--    </bean>-->
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!-- 扫描包路径，如果需要扫描多个包中间用半角逗号隔开 -->
