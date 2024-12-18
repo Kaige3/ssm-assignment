@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- step1: 配置Controller扫描方式 -->
+    <!-- 使用组件扫描的方式可以一次扫描多个Controller,只需指定包路径即可 -->
+    <context:component-scan base-package="com.kaige.controller">
+        <!-- 一般在SpringMVC的配置里，只扫描Controller层，Spring配置中扫描所有包，但是排除Controller层。
+        context:include-filter要注意，如果base-package扫描的不是最终包，那么其他包还是会扫描、加载，如果在SpringMVC的配置中这么做，会导致Spring不能处理事务，
+        所以此时需要在<context:component-scan>标签上，增加use-default-filters="false"，就是真的只扫描context:include-filter包括的内容-->
+<!--        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />-->
+    </context:component-scan>
+
+    <!-- step2: 配置视图解析器，设置视图名时，会自动添加上前缀与后缀 -->
+    <bean id="defaultViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/"/><!--设置JSP文件的目录位置-->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 会在Spring MVC上下文中定义一个org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler，它会像一个检查员，对进入DispatcherServlet的URL进行筛查，如果发现是静态资源的请求，就将该请求转由Web应用服务器默认的Servlet处理，如果不是静态资源的请求，才由DispatcherServlet继续处理。 -->
+<!--    <mvc:default-servlet-handler />-->
+    <mvc:annotation-driven />
+</beans>
+
+
