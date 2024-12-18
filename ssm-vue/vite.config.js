@@ -25,4 +25,9 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  server: {
+    proxy: {
+      '/ssm_demo_war_exploded': 'http://localhost:8083'
+    }
+  }
 })
