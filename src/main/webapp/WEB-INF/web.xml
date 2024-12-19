@@ -1,4 +1,4 @@
-<web-app>
+<web-app xmlns:mvc="https://jakarta.ee/xml/ns/jakartaee">
         <!-- step1: 配置全局的参数，启动Spring容器 -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
@@ -17,8 +17,8 @@
 
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <!-- 若没有提供值，默认会去找WEB-INF/*-servlet.xml。 -->
-      <param-value>classpath:dispatcher-servlet.xml</param-value>
+      <!-- 若没有提供值，默认会去找WEB-INF/*.xml。 -->
+      <param-value>classpath:springMvc.xml</param-value>
     </init-param>
     <!-- 启动优先级，数值越小优先级越大 -->
     <load-on-startup>1</load-on-startup>
@@ -66,14 +66,12 @@
 <!--    <url-pattern>/*</url-pattern>-->
 <!--  </filter-mapping>-->
 
-<!-- A解决跨域问题-->
-<!--  配置跨域拦截过滤器-->
+<!-- 配置跨域拦截过滤器-->
   <filter>
     <filter-name>corsFilter</filter-name>
     <filter-class>com.kaige.config.SimpleCorsFilter</filter-class>
   </filter>
-
-<!-- A配置跨域拦截过滤器-->
+<!-- 配置跨域拦截过滤器-->
   <filter-mapping>
     <filter-name>corsFilter</filter-name>
     <url-pattern>/*</url-pattern>
