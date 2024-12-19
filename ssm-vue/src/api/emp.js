@@ -1,6 +1,19 @@
 import request from '@/utils/request'
 
 
+// login
+export function login(data) {
+    return request({
+        url: `user/login`,
+        method: 'post',
+        data: data,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',  // 发送表单数据
+        },
+        data: data
+    })
+}
+
 // 数据根据id查找客户
 export function queryByIdEcho(id) {
     return request({
@@ -10,7 +23,7 @@ export function queryByIdEcho(id) {
 }
 
 // 编辑数据
-export function edit(id,data) {
+export function edit(id, data) {
     return request({
         url: `emp/update/${id}`,
         method: 'put',

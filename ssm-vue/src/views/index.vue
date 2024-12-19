@@ -26,7 +26,7 @@
                  <el-col :span="24">
                     <h5 class="mb-2">这里会是一个搜索框</h5>
                     <el-menu
-                        default-active="2"
+                        default-active="1"
                         class="el-menu-vertical-demo"
                         @open="handleOpen"
                         @close="handleClose"
@@ -36,7 +36,6 @@
                                 <template #title>
                                     <el-icon><Edit/></el-icon>
                                     客户管理
-                                    
                                 </template>
                             </el-menu-item>
                         </router-link>
@@ -62,6 +61,9 @@
     </div>
   </template>
 <script setup>
+
+// 从login 跳转到 / 页面后台，请求数据
+
 
 
 </script>
