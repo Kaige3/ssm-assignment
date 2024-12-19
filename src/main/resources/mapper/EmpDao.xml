@@ -23,7 +23,7 @@
         left join your_database.industry i on emp.industry_id = i.industry_id
         <where>
             <if test="name != null and name != ''">
-                name = #{name}
+                AND LOWER(name) LIKE LOWER(CONCAT('%', #{name}, '%'))
             </if>
             <if test="sourceId != null">
                 AND s.source_id = #{sourceId}
