@@ -62,7 +62,7 @@ public class Emp implements Serializable {
 /**
      * 客户级别
      */
-    private Integer gradeId;
+    private String gradeId;
 
 
 

@@ -1,6 +1,7 @@
 package com.kaige.dao;
 
 import com.kaige.entity.Emp;
+import com.kaige.entity.vo.EmpVo;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -53,9 +54,9 @@ public interface EmpDao {
     @Delete("delete from emp where id = #{id}")
     int deleteById(Integer id);
 
-    @Select("select * from emp")
-    List<Emp> queryByPage();
+//    @Select("select * from emp")
+    List<EmpVo> queryByPage();
 
-    List<Emp> queryByNameAndId(@Param("name") String name, @Param("sourceId") Integer sourceId, @Param("industryId") Integer industryId, @Param("gradeId") Integer gradeId);
+    List<EmpVo> queryByNameAndId(@Param("name") String name, @Param("sourceId") Integer sourceId, @Param("industryId") Integer industryId, @Param("gradeId") Integer gradeId);
 }
 

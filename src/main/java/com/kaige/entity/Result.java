@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,6 +30,7 @@ public class Result <T>{
     public static <T> Result<T> success(T data) {
         return new Result<>(200, "操作成功", data);  // 默认 code 200 和 "操作成功"
     }
+
 
     // 静态方法，返回失败的结果（包含 code 和 msg）
     public static <T> Result<T> error(int code, String msg) {

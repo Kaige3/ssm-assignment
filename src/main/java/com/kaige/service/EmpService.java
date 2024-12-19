@@ -2,6 +2,7 @@ package com.kaige.service;
 
 import com.kaige.dao.EmpDao;
 import com.kaige.entity.Emp;
+import com.kaige.entity.vo.EmpVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,11 +62,11 @@ public class EmpService {
         return empDao.deleteById(id);
     }
 
-    public List<Emp> queryByPage() {
+    public List<EmpVo> queryByPage() {
         return empDao.queryByPage();
     }
 
-    public List<Emp> queryByNameAndId(String name, Integer sourceId, Integer industryId, Integer gradeId) {
+    public List<EmpVo> queryByNameAndId(String name, Integer sourceId, Integer industryId, Integer gradeId) {
         return empDao.queryByNameAndId(name,sourceId,industryId,gradeId);
     }
 }

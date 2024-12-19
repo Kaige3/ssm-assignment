@@ -34,6 +34,7 @@
 import { reactive, ref } from 'vue';
 import { login } from '@/api/emp'; // 引入你的登录请求
 import router from '@/router';
+import { ElMessage } from 'element-plus';
 
 const ruleFormRef = ref();
 const ruleForm = reactive({
@@ -57,12 +58,20 @@ const submitForm = (formEl) => {
       console.log('表单验证通过，提交数据：', ruleForm);
       login(ruleForm) // 调用登录请求
         .then((response) => {
-          console.log('登录成功：', response.data);
-          window.localStorage.setItem('jwtToken',response.data.data)
-          router.push('/manage')
+          if(response.data.code==500){
+            ElMessage.warning(response.data.msg)
+          }else if(response.data.code == 200){
+
+            window.localStorage.setItem('jwtToken',response.data.data.token)
+            window.localStorage.setItem('userInfo',JSON.stringify(response.data.data.userinfo))
+            console.log('查看接口返回的信息', response.data.data.userinfo);
+            ElMessage.success("登录成功")
+            router.push('/manage')
+          }
         })
         .catch((error) => {
-          console.log('登录失败：', error);
+          console.log('登录失败：', response.data.message);
+          
         });
     } else {
       console.log('表单验证失败');

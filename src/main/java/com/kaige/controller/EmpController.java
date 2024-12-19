@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.kaige.entity.Emp;
 import com.kaige.entity.Result;
+import com.kaige.entity.vo.EmpVo;
 import com.kaige.service.EmpService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,10 @@ public class EmpController {
      * 分页查询
      */
     @GetMapping("page/{pageNum}/{pageSize}")
-    public Result<PageInfo<Emp>> queryByPage(@PathVariable int pageNum, @PathVariable int pageSize) {
+    public Result<PageInfo<EmpVo>> queryByPage(@PathVariable int pageNum, @PathVariable int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        List<Emp> empList = empService.queryByPage();
-        PageInfo<Emp> empPageInfo = new PageInfo<>(empList);
+        List<EmpVo> empList = empService.queryByPage();
+        PageInfo<EmpVo> empPageInfo = new PageInfo<>(empList);
         return Result.success(empPageInfo);
 
     }
@@ -102,10 +103,10 @@ public class EmpController {
      * 根据name,id 动态查询
      */
     @GetMapping("/search")
-    public Result<PageInfo<Emp>> queryByNameAndId(@RequestParam(required = false) String name, @RequestParam Integer pageNum,@RequestParam Integer pageSize,@RequestParam(required = false) Integer sourceId, @RequestParam(required = false) Integer industryId,@RequestParam(required = false) Integer gradeId) {
+    public Result<PageInfo<EmpVo>> queryByNameAndId(@RequestParam(required = false) String name, @RequestParam Integer pageNum, @RequestParam Integer pageSize, @RequestParam(required = false) Integer sourceId, @RequestParam(required = false) Integer industryId, @RequestParam(required = false) Integer gradeId) {
         PageHelper.startPage(pageNum,pageSize);
-        List<Emp> empList = empService.queryByNameAndId(name, sourceId, industryId, gradeId);
-        PageInfo<Emp> empPageInfo = new PageInfo<>(empList);
+        List<EmpVo> empList = empService.queryByNameAndId(name, sourceId, industryId, gradeId);
+        PageInfo<EmpVo> empPageInfo = new PageInfo<>(empList);
         return Result.success(empPageInfo);
     }
 

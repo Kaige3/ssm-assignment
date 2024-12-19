@@ -12,10 +12,13 @@
                 active-text-color="#ffd04b"
                 @select="handleSelect"
             >
-                <el-menu-item index="1">BOOT客户管理系统v2.0</el-menu-item>
-               
-                <el-menu-item index="3" disabled>Info</el-menu-item>
-                <el-menu-item index="4">Orders</el-menu-item>
+                    <el-menu-item index="1">BOOT客户管理系统v2.0</el-menu-item>
+                    <el-sub-menu index="2">
+                        <template #title><el-avatar  src="https://kblog-img.oss-cn-beijing.aliyuncs.com/Snipaste_2024-12-04_23-11-07.png"></el-avatar></template>
+                        <el-menu-item index="2-1"><span><el-icon><User /></el-icon>用户:</span>{{ username }}</el-menu-item>
+                        <el-menu-item index="2-2"><el-icon><Setting /></el-icon>系统设置</el-menu-item>
+                        <el-menu-item index="2-3" @click="quit"><el-icon><Close /></el-icon>退出登录</el-menu-item>
+                    </el-sub-menu>
             </el-menu>
         </el-header>
         <!-- 下方内容，左边菜单和右边路由内容 -->
@@ -61,11 +64,23 @@
     </div>
   </template>
 <script setup>
-
+import router from '@/router';
+import { ref } from 'vue';
+const username = ref()
 // 从login 跳转到 / 页面后台，请求数据
+const UserInfo = JSON.parse(window.localStorage.getItem("userInfo"))
+// console.log('拿到存在storage中的信息',JSON.parse(window.localStorage.getItem("userInfo")))
+console.log('拿到存在storage中的信息',UserInfo)
+username.value = UserInfo.username;
+console.log('用户信息',username.value)
 
 
-
+// 退出 清楚本地 token
+function quit(){
+    window.localStorage.removeItem("JwtToken")
+    window.localStorage.removeItem("userInfo");  // 如果需要清除用户信息
+    router.push('/login')
+}
 </script>
 
 <style lang="scss">
@@ -87,6 +102,7 @@
     justify-content: center;
     .el-menu-demo{
         display: flex;
+        justify-content: space-between;
         width: auto;
     }
 }
@@ -99,5 +115,6 @@
     }
 
 }
+
 
 </style>

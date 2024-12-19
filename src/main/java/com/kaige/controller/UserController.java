@@ -7,6 +7,9 @@ import com.kaige.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * (User)表控制层
  *
@@ -25,11 +28,8 @@ public class UserController {
      * 用户登录
      */
     @PostMapping("login")
-    public Result login(String username,String password) {
-        String login = userService.login(username, password);
-        return Result.success(login);
+    public Result login(String username, String password) {
+        return userService.login(username, password);
     }
-
-
 }
 

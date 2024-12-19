@@ -97,6 +97,7 @@ const fetchTableData = async (pageNum = 1, size = 10) => {
     const response = await queryByPage(pageNum,size)
     const pageInfo = response.data.data;
     tableData.value = pageInfo.list; // 更新表格数据
+    console.log('ssssss',tableData.value)
     total.value = pageInfo.total; // 更新总记录数
   } catch (error) {
     console.error('加载数据失败:', error);
@@ -104,9 +105,9 @@ const fetchTableData = async (pageNum = 1, size = 10) => {
 };
 
 // 存放求情数据
-const industryId = ref([])
-const sourceId = ref([])
-const gradeId = ref([])
+const industryIdList = ref([])
+const sourceIdList = ref([])
+const gradeIdList = ref([])
 
 // 请求 客户来源，所属行业，客户级别
 const fetchTotalData = async ()=>{
@@ -115,7 +116,7 @@ const fetchTotalData = async ()=>{
         const response =  await source();
         const sourceData = response.data.data;
         console.log('拿到source数据',sourceData)
-        sourceId.value = sourceData;
+        sourceIdList.value = sourceData;
     } catch (error) {
         console.log(error)
     }
@@ -124,7 +125,7 @@ const fetchTotalData = async ()=>{
         const response =  await industry();
         const industryData = response.data.data;
         console.log('拿到source数据',industryData)
-        industryId.value = industryData;
+        industryIdList.value = industryData;
     } catch (error) {
         console.log(error)
     }
@@ -133,7 +134,7 @@ const fetchTotalData = async ()=>{
         const response =  await grade();
         const gradeData = response.data.data;
         console.log('拿到source数据',gradeData)
-        gradeId.value = gradeData;
+        gradeIdList.value = gradeData;
     } catch (error) {
         console.log(error)
     }
@@ -168,9 +169,9 @@ const formInline = reactive({
     telephone: '',
     postalCode: '',
     address: '',
-    sourceId: '',
-    industryId: '',
-    gradeId: ''
+    sourceName: '',
+    industryName: '',
+    gradeName: ''
 })
 
 function submitForm() {
@@ -250,13 +251,13 @@ const resetQueryParams = () => {
 // 重置表单
 function reset(){
     formInline.address='';
-    formInline.gradeId='';
-    formInline.industryId='';
+    formInline.gradeName='';
+    formInline.industryName='';
     formInline.linkman='';
     formInline.name='';
     formInline.phone='';
     formInline.postalCode='';
-    formInline.sourceId='';
+    formInline.sourceName='';
     formInline.telephone='';
 }
 
@@ -285,7 +286,7 @@ function reset(){
             style="width: 240px"
             >
             <el-option
-                v-for="item in sourceId"
+                v-for="item in sourceIdList"
                 :key="item.sourceId"
                 :label="item.sourceName"
                 :value="item.sourceId"
@@ -301,7 +302,7 @@ function reset(){
             style="width: 240px"
             >
             <el-option
-                v-for="item in industryId"
+                v-for="item in industryIdList"
                 :key="item.industryId"
                 :label="item.industryName"
                 :value="item.industryId"
@@ -317,7 +318,7 @@ function reset(){
             style="width: 240px"
             >
             <el-option
-                v-for="item in gradeId"
+                v-for="item in gradeIdList"
                 :key="item.gradeId"
                 :label="item.gradeName"
                 :value="item.gradeId"
@@ -333,7 +334,8 @@ function reset(){
 </div>
 
 <!-- 表格数据 -->
- <!-- 新增用户 -->
+
+ <!-- 新增用户按钮 -->
 <el-button type="primary" @click="handleAdd">新增</el-button>
 <div class="table">
     <h3 class="title">客户信息列表</h3>
@@ -347,9 +349,12 @@ function reset(){
             <el-table-column label="编号" prop="id" />
             <el-table-column label="客户名称" prop="name" />
             <el-table-column label="联系人" prop="linkman" />
-            <el-table-column label="客户来源" prop="sourceId" />
-            <el-table-column label="客户所属行业" prop="industryId" />
-            <el-table-column label="客户级别" prop="gradeId" />
+            <el-table-column label="客户来源" prop="sourceName">
+
+            </el-table-column>
+
+            <el-table-column label="客户所属行业" prop="industryName" />
+            <el-table-column label="客户级别" prop="gradeName" />
             <el-table-column label="固定电话" prop="telephone" />
             <el-table-column label="手机" prop="phone" />
     
@@ -400,12 +405,12 @@ function reset(){
             <!-- 客户来源 -->
             <el-form-item label="客户来源">
                 <el-select
-                    v-model="formInline.sourceId"
+                    v-model="formInline.sourceName"
                     placeholder="客户来源"
                     clearable
                 >
                     <el-option
-                    v-for="item in sourceId" 
+                    v-for="item in sourceIdList" 
                     :key="item.sourceId"
                     :label="item.sourceName" 
                     :value="item.sourceId" />
@@ -415,12 +420,12 @@ function reset(){
             <!-- 所属行业 -->
             <el-form-item label="所属行业">
                 <el-select
-                    v-model="formInline.industryId"
+                    v-model="formInline.industryName"
                     placeholder="所属行业"
                     clearable
                 >
                     <el-option 
-                    v-for="item in industryId" 
+                    v-for="item in industryIdList" 
                     :key="item.industryId" 
                     :label="item.industryName" 
                     :value="item.industryId" />
@@ -429,12 +434,12 @@ function reset(){
             <!-- 客户级别 -->
             <el-form-item label="客户级别">
                 <el-select
-                    v-model="formInline.gradeId"
+                    v-model="formInline.gradeName"
                     placeholder="客户级别"
                     clearable
                 >
                     <el-option
-                    v-for="item in gradeId"
+                    v-for="item in gradeIdList"
                     :key="item.gradeId"
                     :label="item.gradeName" 
                     :value="item.gradeId" />
