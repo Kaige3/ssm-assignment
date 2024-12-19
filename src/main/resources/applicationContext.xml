@@ -21,7 +21,7 @@
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <!--注入属性-->
         <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="jdbcUrl" value="jdbc:mysql://114.132.123.49:3306/your_database?useUnicode=true&amp;useSSL=false" />
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/your_database?useUnicode=true&amp;useSSL=false" />
         <property name="user" value="root"/>
         <property name="password" value="your_password"/><!-- 配置连接池参数 -->
         <property name="maxPoolSize" value="50" />   <!-- 最大连接数 -->
