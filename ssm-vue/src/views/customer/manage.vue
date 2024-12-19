@@ -221,11 +221,11 @@ const handleQuery = () => {
       delete validQuery[key]; // 删除空值字段
     }
   });
-
+// 根据name,三个id动态查询
   queryById(validQuery)
     .then(response => {
-      if (response.data.code === 0) {
-        tableData.value = response.data.data; // 这里是接口返回的实际数据
+      if (response.data.code === 200) {
+        tableData.value = response.data.data.list; // 这里是接口返回的实际数据
       } else {
         console.error('查询失败:', response.data.msg);
       }
